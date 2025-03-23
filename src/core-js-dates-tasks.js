@@ -49,24 +49,16 @@ function getTime(date) {
  */
 function getDayName(date) {
   const sdate = new Date(date);
-  switch (sdate.getDay()) {
-    case 0:
-      return 'Sunday';
-    case 1:
-      return 'Monday';
-    case 2:
-      return 'Tuesday';
-    case 3:
-      return 'Wednesday';
-    case 4:
-      return 'Thursday';
-    case 5:
-      return 'Friday';
-    case 6:
-      return 'Saturday';
-    default:
-      return '';
-  }
+  const days = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  return days[sdate.getUTCDay()];
 }
 
 /**
@@ -96,9 +88,7 @@ function getNextFriday(/* date */) {
  * 2, 2024 => 29
  */
 function getCountDaysInMonth(month, year) {
-  const sdate = new Date();
-  sdate.setFullYear = year;
-  sdate.setMonth = month - 1;
+  return new Date(year, month, 0).getDate();
 }
 
 /**
@@ -190,8 +180,9 @@ function getCountWeekendsInMonth(/* month, year */) {
  * Date(2024, 0, 31) => 5
  * Date(2024, 1, 23) => 8
  */
-function getWeekNumberByDate(/* date */) {
-  throw new Error('Not implemented');
+function getWeekNumberByDate(date) {
+  const yearBeginning = new Date(date.getFullYear(), 0, 0);
+  return Math.ceil((date - yearBeginning) / 1000 / 60 / 60 / 24 / 7);
 }
 
 /**
